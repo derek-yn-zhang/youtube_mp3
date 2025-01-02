@@ -2,14 +2,14 @@
 Modified version of sample youtube_dl script that downloads/converts a YouTube video to an MP3 file.
 https://github.com/ytdl-org/youtube-dl/blob/master/README.md#embedding-youtube-dl
 
-Uses the yt-dlp library, which provides support for impersonating browser requests. 
+The script uses the yt-dlp library, which provides support for impersonating browser requests. 
 This may be required for some sites that employ TLS fingerprinting (i.e. YouTube).
 Directly loads cookies from browser databases (e.g. Chrome, Edge and Safari).
 
 https://github.com/yt-dlp/yt-dlp?tab=readme-ov-file#dependencies
 pip install "yt-dlp[default,curl-cffi]"
 
-This script also embeds MP3 metadata using Mutagen.
+The script also embeds MP3 metadata using Mutagen.
 Metadata is applied according to a configuration file and structured resources.
 
 https://mutagen.readthedocs.io/en/latest/user/id3.html

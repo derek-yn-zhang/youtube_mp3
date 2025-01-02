@@ -27,12 +27,12 @@ pip install -r requirements.txt
 
 ## Run Examples
 
-### Single Track
+### 💿 Single Track
 ```
 python main.py -t FeelingBlew__Covers.json
 ```
 
-### Multiple Tracks
+### 💿💿 Multiple Tracks
 ```
 python main.py -t Go_Sailor__Go_Sailor.json
 ```
@@ -43,11 +43,11 @@ python main.py -t Go_Sailor__Go_Sailor.json
 Make sure you are signed into YouTube from either Chrome, Edge or Safari
 
 https://github.com/yt-dlp/yt-dlp/issues/8227#issuecomment-1793513579  
-Using an incognito window if you have trouble
+Try using an incognito window if you have trouble
 
 ### Playlists
-Make sure you don't copy video links from a playlist view, this creates a download loop == the size of playlist  
-Check to see if the url ends in `&list={list_id}&index={index_id}` and delete this segment of the url if needed
+Make sure you don't copy video links from a playlist view, this creates a download loop the size of playlist  
+Check for urls ending in `&list={list_id}&index={index_id}` and delete this segment of the url if needed
 
 ## [TODO]
 - Parallelize the process
