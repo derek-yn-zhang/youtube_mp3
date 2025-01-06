@@ -54,4 +54,5 @@ Make sure you don't copy video links from a playlist view, this creates a downlo
 Check for urls ending in `&list={list_id}&index={index_id}` and delete this segment of the url if needed.
 
 ## `[TODO]`
-- Thread
+- Thread process
+- Option to load directly to Spotify local files
