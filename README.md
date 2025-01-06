@@ -1,5 +1,5 @@
 # 💿 YouTube_MP3
-Rip MP3 audio tracks from YouTube videos
+Use the yt-dlp library to rip MP3 audio tracks from YouTube videos and inject your own metadata.  
 
 ## Dependencies
 Python 3.12 [[Pyenv]](https://github.com/pyenv/pyenv?tab=readme-ov-file#installation)
@@ -43,7 +43,7 @@ python main.py -t Go_Sailor__Go_Sailor.json -b safari
 ## User Notes
 
 ### Cookies
-Make sure you are signed into YouTube from either Chrome, Edge or Safari.  
+Make sure you are signed into YouTube from a yt-dlp supported browser (check CLI usage for options).  
 
 If using Safari, give Full Disk Access to Terminal. [[Issue]](https://github.com/yt-dlp/yt-dlp/issues/7392#issuecomment-1657496651)  
 
@@ -55,4 +55,5 @@ Check for urls ending in `&list={list_id}&index={index_id}` and delete this segm
 
 ## `[TODO]`
 - Thread process
+- Handle playlists
 - Option to load directly to Spotify local files
