@@ -101,7 +101,7 @@ class YouTubeTrack:
 
         yt_opts = {
             "verbose": True,  # [DEBUG]
-            "cookiesfrombrowser": ("safari",),
+            "cookiesfrombrowser": (BROWSER,),
             "outtmpl": self.mp3_output_template,
             "format": "bestaudio/best",
             "postprocessors": [
@@ -155,7 +155,7 @@ if __name__ == "__main__":
         "--browser",
         type=str,
         default="safari",
-        choices=("safari", "chrome", "edge"),
+        choices=tuple(yt_dlp.cookies.SUPPORTED_BROWSERS),
         help="Browser to use for authentication (default: %(default)s)",
     )
     parser.add_argument(
@@ -181,6 +181,7 @@ if __name__ == "__main__":
     )
     args = parser.parse_args()
 
+    BROWSER = args.browser
     OUTPUT_DIR = args.output_dir
     COVER_ART_DIR = args.cover_art_dir
     TRACKLIST_DIR = args.tracklist_dir

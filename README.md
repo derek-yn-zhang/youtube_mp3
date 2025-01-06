@@ -26,8 +26,6 @@ pip install -r requirements.txt
 ```
 
 ## Usage
-
-### Help
 ```
 python main.py -h
 ```
