@@ -2,7 +2,7 @@
 Use the yt-dlp library to rip MP3 audio tracks from YouTube videos and inject your own metadata.  
 
 ## Dependencies
-Python 3.12 [[Pyenv]](https://github.com/pyenv/pyenv?tab=readme-ov-file#installation)
+Python 3.9+ [[Pyenv]](https://github.com/pyenv/pyenv?tab=readme-ov-file#installation)
 
 ## Installation
 Install `virtualenv` if you have not already
@@ -10,9 +10,9 @@ Install `virtualenv` if you have not already
 pip install virtualenv
 ```
 
-Create Python 3.12 virtual environment
+Create Python virtual environment
 ```
-python3.12 -m venv "venv"
+python3 -m venv "venv"
 ```
 
 Activate the virtual environment
