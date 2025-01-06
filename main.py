@@ -76,7 +76,9 @@ class YouTubeTrack:
         if cover_ext in [".png"]:
             return "image/png"
         else:
-            raise ValueError(f"Invalid cover art file format '{cover_ext}'")
+            raise ValueError(
+                f"Invalid cover art file extension '{cover_ext}', convert to '.jpg' or '.png'"
+            )
 
     def initialize_mp3_output_path(self):
         """Create intermediate directories for mp3 path"""
@@ -99,7 +101,7 @@ class YouTubeTrack:
 
         yt_opts = {
             "verbose": True,  # [DEBUG]
-            # "cookiesfrombrowser": ("chrome",),
+            "cookiesfrombrowser": ("safari",),
             "outtmpl": self.mp3_output_template,
             "format": "bestaudio/best",
             "postprocessors": [
@@ -149,25 +151,33 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("-t", "--tracklist", type=str, help="Tracklist file name")
     parser.add_argument(
+        "-b",
+        "--browser",
+        type=str,
+        default="safari",
+        choices=("safari", "chrome", "edge"),
+        help="Browser to use for authentication (default: %(default)s)",
+    )
+    parser.add_argument(
         "-od",
         "--output-dir",
         type=str,
         default="downloads",
-        help="Folder containing downloaded MP3 files",
+        help="Folder containing downloaded MP3 files (default: %(default)s)",
     )
     parser.add_argument(
         "-cd",
         "--cover-art-dir",
         type=str,
         default="covers",
-        help="Folder containing cover art images",
+        help="Folder containing cover art images (default: %(default)s)",
     )
     parser.add_argument(
         "-td",
         "--tracklist-dir",
         type=str,
         default="tracklists",
-        help="Folder containing tracklist configuration files",
+        help="Folder containing tracklist configuration files (default: %(default)s)",
     )
     args = parser.parse_args()
 
