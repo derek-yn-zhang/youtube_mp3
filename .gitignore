@@ -1,7 +1,11 @@
 # Only keep necessary source files in git
 *
+!covers
+covers/*
 !covers/FeelingBlew__Covers.png
 !covers/Go_Sailor__Go_Sailor.png
+!tracklists
+tracklists/*
 !tracklists/FeelingBlew__Covers.json
 !tracklists/Go_Sailor__Go_Sailor.json
 !.gitignore
