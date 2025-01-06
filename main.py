@@ -3,8 +3,8 @@ Modified version of sample youtube_dl script that downloads/converts a YouTube v
 https://github.com/ytdl-org/youtube-dl/blob/master/README.md#embedding-youtube-dl
 
 The script uses the yt-dlp library, which provides support for impersonating browser requests. 
-This may be required for some sites that employ TLS fingerprinting (i.e. YouTube).
-Directly loads cookies from browser databases (e.g. Chrome, Edge and Safari).
+This may be required for some sites that employ TLS fingerprinting (e.g. YouTube).
+Directly loads cookies from browser databases (e.g. Chrome, Edge, Safari, etc.).
 
 https://github.com/yt-dlp/yt-dlp?tab=readme-ov-file#dependencies
 pip install "yt-dlp[default,curl-cffi]"
@@ -15,11 +15,13 @@ Metadata is applied according to a configuration file and structured resources.
 https://mutagen.readthedocs.io/en/latest/user/id3.html
 """
 
+import io
 import json
 import argparse
 from pathlib import Path
 
 import yt_dlp
+from PIL import Image
 from mutagen.mp3 import MP3
 from mutagen.id3 import (
     ID3,
@@ -61,6 +63,7 @@ class YouTubeTrack:
         self.artist = artist
         self.album = album
         self.cover_path = f"{COVER_ART_DIR}/{cover}"
+        self.cover_ext = Path(self.cover_path).suffix
         self.cover_mime_type = self.resolve_cover_mime_type()
         self.mp3_output_template = (
             f"{OUTPUT_DIR}/{artist} - {album}/{artist} - {track_no} - {title}"
@@ -70,14 +73,13 @@ class YouTubeTrack:
     def resolve_cover_mime_type(self):
         """Determine mime type for cover art based on file extension"""
 
-        cover_ext = Path(self.cover_path).suffix
-        if cover_ext in [".jpg"]:
+        if self.cover_ext in [".jpg"]:
             return "image/jpg"
-        if cover_ext in [".png"]:
+        if self.cover_ext in [".png"]:
             return "image/png"
         else:
             raise ValueError(
-                f"Invalid cover art file extension '{cover_ext}', convert to '.jpg' or '.png'"
+                f"Invalid cover art file extension '{self.cover_ext}', convert to '.jpg' or '.png'"
             )
 
     def initialize_mp3_output_path(self):
@@ -117,6 +119,15 @@ class YouTubeTrack:
         with yt_dlp.YoutubeDL(yt_opts) as ydl:
             ydl.download([self.url])
 
+    def resize_cover_art(self):
+        """Resize thumbnail to medium quality and return byte stream"""
+
+        img_byte_arr = io.BytesIO()
+        img = Image.open(self.cover_path)
+        img_resized = img.resize((300, 300), resample=Image.LANCZOS)
+        img_resized.save(img_byte_arr, format=self.cover_ext[1:])
+        return img_byte_arr.getvalue()
+
     def write_mp3_metadata(self):
         """Add tags and album art to an MP3 file."""
 
@@ -131,7 +142,8 @@ class YouTubeTrack:
                 mime=self.cover_mime_type,  # Can be image/jpeg or image/png
                 type=3,  # 3 is for the cover image
                 desc="Cover",
-                data=open(self.cover_path, mode="rb").read(),
+                # data=open(self.cover_path, mode="rb").read(),
+                data=self.resize_cover_art(),
             )
         )
         audio.save()
